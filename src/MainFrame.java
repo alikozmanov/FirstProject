@@ -49,10 +49,20 @@ public class MainFrame extends JFrame {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Traitement lorsque le bouton OK est cliqué
-                String FirstName = tfFirstName.getText();
-                String LastName = tfLastName.getText();
-                lbWelcome.setText("Hello " + FirstName + " " + LastName);
+                // Validation des champs
+                String firstName = tfFirstName.getText().trim();
+                String lastName = tfLastName.getText().trim();
+
+                if (firstName.isEmpty() || lastName.isEmpty()) {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Veuillez remplir tous les champs.", "Erreur",
+                            JOptionPane.ERROR_MESSAGE);
+                } else if (!isValidName(firstName) || !isValidName(lastName)) {
+                    JOptionPane.showMessageDialog(MainFrame.this, "Les noms ne doivent contenir que des lettres.",
+                            "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Traitement lorsque le bouton OK est cliqué
+                    lbWelcome.setText("Hello " + firstName + " " + lastName);
+                }
             }
         });
 
@@ -93,6 +103,11 @@ public class MainFrame extends JFrame {
         setMinimumSize(new Dimension(300, 400));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    // Méthode pour valider les noms
+    private boolean isValidName(String name) {
+        return name.matches("[a-zA-Z]+");
     }
 
     // Méthode principale
