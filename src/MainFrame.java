@@ -1,15 +1,15 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 
 public class MainFrame extends JFrame {
     // Définition de la police principale
-    final private Font mainFont = new Font("Segeo print", Font.BOLD, 18);
+    final private Font mainFont = new Font("Segoe Print", Font.BOLD, 18); 
+
     // Déclaration des champs de texte et du label
-    JTextField tfFirstName, tfLastName;
+    JTextField tfFirstName, tfLastName, tfAddress;
     JLabel lbWelcome;
 
     // Méthode pour initialiser la fenêtre
@@ -28,14 +28,33 @@ public class MainFrame extends JFrame {
         tfLastName = new JTextField();
         tfLastName.setFont(mainFont);
 
+        // Ajout de la liste déroulante pour le genre
+        JLabel lbGender = new JLabel("Gender");
+        lbGender.setFont(mainFont);
+
+        String[] genderOptions = {"Male", "Female"};
+        JComboBox<String> genderComboBox = new JComboBox<>(genderOptions);
+        genderComboBox.setFont(mainFont);
+
+        // Ajout du champ d'adresse
+        JLabel lbAddress = new JLabel("Address");
+        lbAddress.setFont(mainFont);
+
+        tfAddress = new JTextField();
+        tfAddress.setFont(mainFont);
+
         // Création du panneau de formulaire
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(4, 1, 5, 5));
+        formPanel.setLayout(new GridLayout(6, 1, 5, 5)); // Ajustement du nombre de lignes pour inclure les nouveaux éléments
         formPanel.setOpaque(false);
         formPanel.add(lbFirstName);
         formPanel.add(tfFirstName);
         formPanel.add(lbLastName);
         formPanel.add(tfLastName);
+        formPanel.add(lbGender);
+        formPanel.add(genderComboBox);
+        formPanel.add(lbAddress);
+        formPanel.add(tfAddress);
 
         /************ Welcome Label ************/
         // Création du label de bienvenue
@@ -61,7 +80,9 @@ public class MainFrame extends JFrame {
                             "Erreur", JOptionPane.ERROR_MESSAGE);
                 } else {
                     // Traitement lorsque le bouton OK est cliqué
-                    lbWelcome.setText("Hello " + firstName + " " + lastName);
+                    String selectedGender = (String) genderComboBox.getSelectedItem();
+                    String address = tfAddress.getText().trim();
+                    lbWelcome.setText("Hello " + firstName + " " + lastName + "! Gender: " + selectedGender + ", Address: " + address);
                 }
             }
         });
@@ -74,6 +95,8 @@ public class MainFrame extends JFrame {
                 // Traitement lorsque le bouton Clear est cliqué
                 tfFirstName.setText("");
                 tfLastName.setText("");
+                genderComboBox.setSelectedIndex(0); // Réinitialise la liste déroulante du genre
+                tfAddress.setText("");
                 lbWelcome.setText("");
             }
         });
