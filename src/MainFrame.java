@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class MainFrame extends JFrame {
     // Définition de la police principale
@@ -11,6 +10,7 @@ public class MainFrame extends JFrame {
     // Déclaration des champs de texte et du label
     JTextField tfFirstName, tfLastName, tfAddress;
     JLabel lbWelcome;
+    JComboBox<String> genderComboBox;
 
     // Méthode pour initialiser la fenêtre
     public void initialize() {
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
         lbGender.setForeground(Color.WHITE); // Définir la couleur du texte en blanc
     
         String[] genderOptions = {"Male", "Female"};
-        JComboBox<String> genderComboBox = new JComboBox<>(genderOptions);
+        genderComboBox = new JComboBox<>(genderOptions);
         genderComboBox.setFont(mainFont);
     
         // Ajout du champ d'adresse
@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
     
         // Création du panneau de formulaire
         JPanel formPanel = new JPanel();
-        formPanel.setLayout(new GridLayout(6, 1, 5, 5));
+        formPanel.setLayout(new GridLayout(8, 1, 5, 5));
         formPanel.setOpaque(true);
         formPanel.setBackground(newBackgroundColor);
         formPanel.add(lbFirstName);
@@ -91,9 +91,10 @@ public class MainFrame extends JFrame {
                 String firstName = tfFirstName.getText();
                 String lastName = tfLastName.getText();
                 String address = tfAddress.getText();
+                String gender = (String) genderComboBox.getSelectedItem();
                 
                 if (isValidName(firstName) && isValidName(lastName)) {
-                    lbWelcome.setText("Welcome " + firstName + " " + lastName + "!");
+                    lbWelcome.setText("<html>Welcome " + firstName + " " + lastName + "!<br>Address: " + address + "<br>Gender: " + gender + "</html>");
                 } else {
                     lbWelcome.setText("Please enter valid names.");
                 }
