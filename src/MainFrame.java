@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 
     // Méthode pour initialiser la fenêtre
     public void initialize() {
-        Color newBackgroundColor = Color.BLUE;
+        Color newBackgroundColor = Color.RED;
     
         /************ Form Panel ************/
         // Création des composants pour le formulaire
@@ -88,14 +88,25 @@ public class MainFrame extends JFrame {
         btnOK.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Validation des champs et traitement du bouton OK
+                String firstName = tfFirstName.getText();
+                String lastName = tfLastName.getText();
+                String address = tfAddress.getText();
+                
+                if (isValidName(firstName) && isValidName(lastName)) {
+                    lbWelcome.setText("Welcome " + firstName + " " + lastName + "!");
+                } else {
+                    lbWelcome.setText("Please enter valid names.");
+                }
             }
         });
     
         btnClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Traitement du bouton Clear
+                tfFirstName.setText("");
+                tfLastName.setText("");
+                tfAddress.setText("");
+                lbWelcome.setText("");
             }
         });
     
@@ -129,5 +140,4 @@ public class MainFrame extends JFrame {
         MainFrame myFrame = new MainFrame();
         myFrame.initialize();
     }
-    
 }
